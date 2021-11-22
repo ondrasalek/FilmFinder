@@ -9,7 +9,7 @@
   <ion-button expand="block" (click)="searchMovie()">Search</ion-button>
 
   <ion-list>
-    <ion-item button *ngFor="let post of (posts |async)" [routerLink]="['/posts', post.imdbID]">
+    <ion-item *ngFor="let post of posts$ |async" [routerLink]="['/posts', post.imdbID]">
       <ion-avatar slot="start">
         <img [src]="post.Poster" *ngIf="post.Poster != 'N/A'">
       </ion-avatar>
