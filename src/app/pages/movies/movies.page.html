@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="medium">
+    <ion-title>Search movie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+  <ion-button expand="block" (click)="searchMovie()">Search</ion-button>
+
+  <ion-list>
+    <ion-item button *ngFor="let post of (posts |async)" [routerLink]="['/posts', post.imdbID]">
+      <ion-avatar slot="start">
+        <img [src]="post.Poster" *ngIf="post.Poster != 'N/A'">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <h3>{{ post.Title }}</h3>
+        {{ post.Year }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
