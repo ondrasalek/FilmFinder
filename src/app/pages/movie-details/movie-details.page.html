@@ -3,13 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ post?.Genre }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-card *ngIf="post">
+  <ion-card *ngIf="post$ | async; let post">
     <ion-card-header>
       <ion-card-title>
         {{ post.Title }}
@@ -19,7 +18,7 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content text-center>
-      <img [src]="post.Poster" class="info-img">
+      <img [src]=" post.Poster" class="info-img">
       {{ post.Plot }}
 
       <ion-item lines="none">
@@ -37,10 +36,6 @@
         <ion-label text-wrap>{{ post.Actors }}</ion-label>
       </ion-item>
 
-      <ion-button expand="full" (click)="openWebsite()" *ngIf="post.Website && post.Website != 'N/A'">
-        <ion-icon name="open" slot="start"></ion-icon>
-        Open Website
-      </ion-button>
     </ion-card-content>
   </ion-card>
 

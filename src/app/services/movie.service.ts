@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Post } from '../models/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,15 @@ export class MovieService {
     private http: HttpClient
   ) { }
 
-  getPosts(title: string): Observable<any> {
+  getPosts$(title: string): Observable<Post[]> {
     const finding_posts = `${this.apiUrl}?type=${this.type}&s=${encodeURI(title)}&apikey=${this.apiKey}`;
-    console.log(finding_posts);
-    // return this.http.get<Post[]>(finding_posts);
+    // console.log(finding_posts);
     return this.http.get(finding_posts).pipe(map(posts => posts['Search']))
   }
-  getPost(id: string) {
-    // return this.http.get<Post>(`${this.apiUrl}?i=${id}&plot=full&apikey=${this.apiKey}`);
-    return this.http.get(`${this.apiUrl}?i=${id}&plot=full&apikey=${this.apiKey}`);
-  }
+  getPost$(id: string) {
+    const finding_post = `${this.apiUrl}?i=${id}&apikey=${this.apiKey}`;
+    console.log(finding_post);
 
+    return this.http.get<Post>(finding_post);
+  }
 }

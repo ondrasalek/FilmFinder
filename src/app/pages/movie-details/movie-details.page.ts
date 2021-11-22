@@ -2,6 +2,7 @@ import { MovieService } from './../../services/movie.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-movie-details',
@@ -9,15 +10,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./movie-details.page.scss'],
 })
 export class MovieDetailsPage implements OnInit {
-  post = null;
+  post$: Observable<Post>;
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private movieService: MovieService
+  ) {
+    const id = this.route.snapshot.paramMap.get("id");
+    this.post$ = this.movieService.getPost$(id);
+  }
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
-
-    this.movieService.getPost(id).subscribe(result => {
-      this.post = result;
-    });
   }
 }
