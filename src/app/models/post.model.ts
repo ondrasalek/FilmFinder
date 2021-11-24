@@ -1,16 +1,15 @@
 export interface Post {
-  imdbID: string; //imdbID
+  imdbID: string;
   Title: string;
-  Type: string;
   Year: number;
-  Released: string;
   Runtime: string;
-  Language: string;
-  Country: string;
   Genre: string;
   Director: string;
   Writer: string;
   Actors: string;
-  imdbRating: string;
+  Plot: string;
+  Language: string;
+  Country: string;
   Poster: string;
+  imdbRating: string;
 }
