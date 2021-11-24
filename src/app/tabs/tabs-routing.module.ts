@@ -8,11 +8,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'Search Movie',
+        path: 'tab1',
         loadChildren: () => import('../pages/movies/movies.module').then(m => m.MoviesPageModule)
       },
       {
-        path: 'Favorites',
+        path: 'tab2',
         loadChildren: () => import('../pages/favorite/favorite.module').then(m => m.FavoritePageModule)
       },
       {
@@ -21,14 +21,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/Search Movie',
+        redirectTo: '/tabs/tab1',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/Search Movie',
+    redirectTo: '/tabs/tab1',
     pathMatch: 'full'
   }
 ];
