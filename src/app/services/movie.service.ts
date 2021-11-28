@@ -24,15 +24,8 @@ export class MovieService {
     private cache: CachingService,
     private toastController: ToastController
   ) {
-    this.checkConnection();
   }
 
-
-  checkConnection() {
-    Network.getStatus().then(status => {
-    }
-    );
-  }
 
   getPosts$(title: string): Observable<Post[]> {
     const finding_posts = `${this.apiUrl}?type=${this.type}&s=${encodeURI(title)}&apikey=${this.apiKey}`;
