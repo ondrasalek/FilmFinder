@@ -3,10 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post.model';
+import { CachingService } from './caching.service';
+import { ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+const { Network } = Plugins;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MovieService {
   // http://www.omdbapi.com/?i=tt3896198&apikey=2045c290
   apiUrl = "http://www.omdbapi.com/";
@@ -15,8 +20,19 @@ export class MovieService {
   // apiKey = "2e95829b";
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private cache: CachingService,
+    private toastController: ToastController
+  ) {
+    this.checkConnection();
+  }
+
+
+  checkConnection() {
+    Network.getStatus().then(status => {
+    }
+    );
+  }
 
   getPosts$(title: string): Observable<Post[]> {
     const finding_posts = `${this.apiUrl}?type=${this.type}&s=${encodeURI(title)}&apikey=${this.apiKey}`;
