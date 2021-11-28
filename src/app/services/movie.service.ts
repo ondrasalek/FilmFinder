@@ -26,7 +26,6 @@ export class MovieService {
   ) {
   }
 
-
   getPosts$(title: string): Observable<Post[]> {
     const finding_posts = `${this.apiUrl}?type=${this.type}&s=${encodeURI(title)}&apikey=${this.apiKey}`;
     // console.log(finding_posts);
@@ -34,8 +33,7 @@ export class MovieService {
   }
   getPost$(id: string) {
     const finding_post = `${this.apiUrl}?i=${id}&apikey=${this.apiKey}`;
-    console.log(finding_post);
-
+    // console.log(finding_post);
     return this.http.get<Post>(finding_post);
   }
 }

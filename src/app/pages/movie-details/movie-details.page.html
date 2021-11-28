@@ -1,34 +1,30 @@
 <ion-header>
-  <ion-toolbar color="medium">
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-      <ion-fab-button color="warning">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="addFavorite()">
+        <ion-icon slot="icon-only" name="star"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="warning">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 
   <ion-card *ngIf="post$ | async; let post">
     <ion-card-header>
       <ion-card-title>{{ post.Title }}</ion-card-title>
       <ion-card-subtitle>
         <ion-label>
-          <ion-icon name="calendar" slot="start"></ion-icon>
+          <ion-icon color="dark" name="calendar" slot="start"></ion-icon>
           {{ post.Year }}
         </ion-label>
         <br>
         <ion-label>
-          <ion-icon name="time" slot="start"></ion-icon>
+          <ion-icon color="dark" name="time" slot="start"></ion-icon>
           {{ post.Runtime }}
         </ion-label>
       </ion-card-subtitle>
@@ -38,26 +34,27 @@
       <ion-badge color="medium">
         {{ post.Genre }}
       </ion-badge>
-      <ion-img [src]="post.Poster"></ion-img>
+      <ion-img [src]="post.Poster" *ngIf="post.Poster != N/A"></ion-img>
+
       <div class="ion-padding-vertical">
         {{ post.Plot }}
       </div>
 
       <ion-list>
         <ion-item padding>
-          <ion-icon name="star" slot="start"></ion-icon>
+          <ion-icon color="warning" name="star" slot="start"></ion-icon>
           <ion-label>
             {{ post.imdbRating }} / 10
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-icon name="locate" slot="start"></ion-icon>
+          <ion-icon color="secondary" name="locate" slot="start"></ion-icon>
           <ion-label>
             {{ post.Country }}
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-icon name="language-outline" slot="start"></ion-icon>
+          <ion-icon color="dark" name="language" slot="start"></ion-icon>
           <ion-label class="ion-text-wrap">
             {{ post.Language }}
           </ion-label>

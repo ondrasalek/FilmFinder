@@ -1,10 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-title>Search Movie</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
   <ion-button expand="block" (click)="searchMovie()">Search</ion-button>
 

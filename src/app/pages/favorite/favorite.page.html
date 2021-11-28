@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <ion-list>
+    <ion-item *ngFor="let post of fav$ |async" [routerLink]="['/movies', post.imdbID]">
+      <ion-avatar slot="start">
+        <img [src]="post.Poster" *ngIf="post.Poster != 'N/A'">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <h3>{{ post.Title }}</h3>
+        {{ post.Year }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
