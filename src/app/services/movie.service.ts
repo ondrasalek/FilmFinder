@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post.model';
-// import { CachingService } from './caching.service';
+// import { StorageService } from './storage.service';
 // import { ToastController } from '@ionic/angular';
 // import { Plugins } from '@capacitor/core';
 // const { Network } = Plugins;
@@ -21,7 +21,7 @@ export class MovieService {
 
   constructor(
     private http: HttpClient,
-    // private cache: CachingService,
+    // private storage: StorageService,
     // private toastController: ToastController
   ) {
   }
