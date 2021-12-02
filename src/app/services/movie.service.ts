@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post.model';
-import { CachingService } from './caching.service';
-import { ToastController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
-const { Network } = Plugins;
+// import { CachingService } from './caching.service';
+// import { ToastController } from '@ionic/angular';
+// import { Plugins } from '@capacitor/core';
+// const { Network } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +16,13 @@ export class MovieService {
   // http://www.omdbapi.com/?i=tt3896198&apikey=2045c290
   apiUrl = "http://www.omdbapi.com/";
   apiKey = "2045c290";
-  type = "movie";
   // apiKey = "2e95829b";
+  type = "movie";
 
   constructor(
     private http: HttpClient,
-    private cache: CachingService,
-    private toastController: ToastController
+    // private cache: CachingService,
+    // private toastController: ToastController
   ) {
   }
 
