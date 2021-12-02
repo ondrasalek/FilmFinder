@@ -14,7 +14,7 @@ import { Post } from '../models/post.model';
 
 export class MovieService {
   // http://www.omdbapi.com/?i=tt3896198&apikey=2045c290
-  apiUrl = "http://www.omdbapi.com/";
+  apiUrl = "https://www.omdbapi.com/";
   apiKey = "2045c290";
   // apiKey = "2e95829b";
   type = "movie";
