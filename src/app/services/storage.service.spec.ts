@@ -1,16 +1,26 @@
-import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
 
-import { StorageService } from './storage.service';
+import { Storage } from '@ionic/storage-angular';
 
-describe('StorageService', () => {
-  let service: StorageService;
+@Injectable({
+  providedIn: 'root'
+})
+export class StorageService {
+  private _storage: Storage | null = null;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(StorageService);
-  });
+  constructor(private storage: Storage) {
+    this.init();
+  }
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  async init() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    const storage = await this.storage.create();
+    this._storage = storage;
+  }
+
+  // Create and expose methods that users of this service can
+  // call, for example:
+  public set(key: string, value: any) {
+    this._storage?.set(key, value);
+  }
+}

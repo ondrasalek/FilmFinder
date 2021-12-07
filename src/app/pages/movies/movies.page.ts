@@ -10,7 +10,7 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MoviesPage implements OnInit {
   posts$: Observable<Post[]>;
-  searchTerm: string = '';
+  searchTerm = '';
 
   constructor(private movieService: MovieService) {
   }
