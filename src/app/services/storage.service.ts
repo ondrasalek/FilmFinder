@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@ionic/storage-angular'
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,8 @@ export class StorageService {
   // call, for example:
   public set(key: string, value: any) {
     this._storage?.set(key, value);
+  }
+  public get(value: any) {
+    console.log(value);
   }
 }

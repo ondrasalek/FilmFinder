@@ -12,10 +12,11 @@ export class MoviesPage implements OnInit {
   posts$: Observable<Post[]>;
   searchTerm = '';
 
-  constructor(private movieService: MovieService) {
-  }
+  constructor(
+    private movieService: MovieService,
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
   searchMovie() {
     this.posts$ = this.movieService.getPosts$(this.searchTerm);

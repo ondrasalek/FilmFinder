@@ -18,7 +18,6 @@ export class MovieService {
 
   constructor(
     private http: HttpClient,
-
   ) {
   }
 

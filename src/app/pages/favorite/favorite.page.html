@@ -1,12 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Favorite</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="deleteAll()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let post of fav$ |async" [routerLink]="['/movies', post.imdbID]">
+    <ion-item *ngFor="let post of fav$ |async">
       <ion-avatar slot="start">
         <img [src]="post.Poster" *ngIf="post.Poster != 'N/A'">
       </ion-avatar>
