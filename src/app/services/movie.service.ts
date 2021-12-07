@@ -21,7 +21,7 @@ export class MovieService {
   ) {
   }
 
-  getPosts$(title: string): Observable<Post[]> {
+  getPosts$(title: string) {
     const findingPosts = `${this.apiUrl}?type=${this.type}&s=${encodeURI(title)}&apikey=${this.apiKey}`;
     // console.log(finding_posts);
     return this.http.get(findingPosts).pipe(map(posts => posts['Search']));
@@ -29,6 +29,6 @@ export class MovieService {
   getPost$(id: string) {
     const findingPosts = `${this.apiUrl}?i=${id}&apikey=${this.apiKey}`;
     // console.log(finding_post);
-    return this.http.get<Post>(findingPosts);
+    return this.http.get<any>(findingPosts);
   }
 }

@@ -11,14 +11,8 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let post of fav$ |async">
-      <ion-avatar slot="start">
-        <img [src]="post.Poster" *ngIf="post.Poster != 'N/A'">
-      </ion-avatar>
-      <ion-label text-wrap>
-        <h3>{{ post.Title }}</h3>
-        {{ post.Year }}
-      </ion-label>
-    </ion-item>
+    <!-- <ion-item *ngFor="let fav of favs |async">
+      <ion-label>{{ fav.Title }}</ion-label>
+    </ion-item> -->
   </ion-list>
 </ion-content>

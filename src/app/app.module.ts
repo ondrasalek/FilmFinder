@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers, Storage } from '@ionic/storage';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

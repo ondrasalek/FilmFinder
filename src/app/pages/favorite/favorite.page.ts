@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular'
+import { StorageService } from 'src/app/services/storage.service';
+
 
 @Component({
   selector: 'app-favorite',
@@ -8,28 +9,41 @@ import { Storage } from '@ionic/storage-angular'
   styleUrls: ['./favorite.page.scss'],
 })
 export class FavoritePage implements OnInit {
+  list = [];
 
   constructor(
-    private storage: Storage,
+    private storageService: StorageService,
     public alertController: AlertController
   ) {
+    this.loadFavs();
   }
 
-  ngOnInit() {
-    this.get();
+  async ngOnInit() {
+  }
+  deleteAll() {
+    this.alertController.create({
+      header: 'Delete all favorites',
+      message: 'Are you sure you want to delete all favorites?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.storageService.clear();
+          }
+        }]
+    }).then(alert => alert.present());
   }
 
-  get() {
-    this.storage.forEach((value, key, index) => {
-      console.log(value);
-      console.log(key);
-      console.log(index);
+  loadFavs() {
+    this.storageService.forEach((key) => {
+      this.storageService.get(key).then(value => console.log(value));
     });
   }
 
-  deleteAll() {
-    this.storage.clear();
-    console.log("deleted all favs");
-    // this.alertController.create()
-  }
 }
