@@ -10,9 +10,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <!-- <ion-item *ngFor="let fav of favs |async">
-      <ion-label>{{ fav.Title }}</ion-label>
-    </ion-item> -->
+  <ion-list *ngIf="list.length !== 0">
+    <ion-item *ngFor="let fav of list">
+      <ion-avatar slot="start">
+        <img [src]="fav.Poster" *ngIf="fav.Poster !== 'N/A'">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <h3>{{ fav.Title }}</h3>
+        {{ fav.Year }}
+      </ion-label>
+    </ion-item>
   </ion-list>
+
+  <section class="full-width ion-padding" *ngIf="list.length === 0">
+    <ion-button expand="full" size="large" fill="outline" shape="round" color="warning" [routerLink]="['/tabs']">
+      <ion-icon slot="end" name="search-outline"></ion-icon>
+      NO FAVORITE MOVIES YET
+    </ion-button>
+  </section>
+
 </ion-content>

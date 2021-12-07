@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
 
   <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
-  <ion-button expand="block" (click)="searchMovie()">Search</ion-button>
+  <ion-button expand="block" (click)="searchMovie()" class="ion-padding-horizontal" size="large">Search</ion-button>
 
   <ion-list>
     <ion-item *ngFor="let post of posts$ |async" [routerLink]="['/movies', post.imdbID]">

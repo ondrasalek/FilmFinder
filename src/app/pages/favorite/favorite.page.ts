@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -8,17 +8,19 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './favorite.page.html',
   styleUrls: ['./favorite.page.scss'],
 })
-export class FavoritePage implements OnInit {
+export class FavoritePage implements OnInit, OnChanges {
   list = [];
 
   constructor(
     private storageService: StorageService,
-    public alertController: AlertController
+    public alertController: AlertController,
   ) {
     this.loadFavs();
   }
 
   async ngOnInit() {
+  }
+  async ngOnChanges() {
   }
   deleteAll() {
     this.alertController.create({
@@ -41,9 +43,8 @@ export class FavoritePage implements OnInit {
   }
 
   loadFavs() {
-    this.storageService.forEach((key) => {
-      this.storageService.get(key).then(value => console.log(value));
+    this.storageService.forEach((value, key, index) => {
+      this.list.push(value);
     });
   }
-
 }
