@@ -10,19 +10,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list *ngIf="list.length !== 0">
-    <ion-item *ngFor="let fav of list">
-      <ion-avatar slot="start">
-        <img [src]="fav.Poster" *ngIf="fav.Poster !== 'N/A'">
-      </ion-avatar>
-      <ion-label text-wrap>
-        <h3>{{ fav.Title }}</h3>
-        {{ fav.Year }}
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <section class="full-width ion-padding" *ngIf="list !== null">
+    <ion-list *ngIf="list.length !== 0">
+      <ion-item *ngFor="let item of list">
+        <ion-avatar slot="start">
+          <img [src]="item.Poster" *ngIf="item.Poster !== 'N/A'">
+        </ion-avatar>
+        <ion-label text-wrap>
+          <h3>{{ item.Title }}</h3>
+          {{ item.Year }}
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button color="primary" (click)="deleteItem(item)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </section>
 
-  <section class="full-width ion-padding" *ngIf="list.length === 0">
+  <section class="full-width ion-padding" *ngIf="list === null || list.length === 0">
     <ion-button expand="full" size="large" fill="outline" shape="round" color="warning" [routerLink]="['/tabs']">
       <ion-icon slot="end" name="search-outline"></ion-icon>
       NO FAVORITE MOVIES YET

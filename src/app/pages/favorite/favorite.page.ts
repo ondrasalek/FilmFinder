@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ViewWillEnter } from '@ionic/angular';
+
 import { StorageService } from 'src/app/services/storage.service';
 
 
@@ -20,7 +21,9 @@ export class FavoritePage implements OnInit, ViewWillEnter {
   async ngOnInit() {
   }
   async ionViewWillEnter() {
-    this.loadFavs();
+    await this.storageService.get("favorites").then(favorites => {
+      this.list = favorites;
+    });
   }
 
   deleteAllFavs() {
@@ -37,15 +40,32 @@ export class FavoritePage implements OnInit, ViewWillEnter {
         }, {
           text: 'Okay',
           handler: () => {
-            this.storageService.set("favorites", []);
+            this.storageService.remove("favorites");
+            this.ionViewWillEnter();
           }
         }]
     }).then(alert => alert.present());
   }
-
-  loadFavs() {
-    this.storageService.get("favorites").then(favs => {
-      this.list = favs;
-    });
+  deleteItem(item) {
+    this.alertController.create({
+      header: 'Delete this film?',
+      message: item.Title,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.list = this.list.filter(fav => fav.imdbID !== item.imdbID ? fav : null);
+            this.storageService.set("favorites", this.list);
+          }
+        }]
+    }).then(alert => alert.present());
+    this.ionViewWillEnter();
   }
+
 }

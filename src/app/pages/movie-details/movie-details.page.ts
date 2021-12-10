@@ -28,35 +28,37 @@ export class MovieDetailsPage implements OnInit {
   }
 
   addFavorite() {
-
     this.post$.subscribe(p => {
       if (this.storageService.get('favorites')) {
         this.storageService.get('favorites').then(favorites => {
-          this.list = favorites;
-          if (favorites.find(f => f.imdbID === p.imdbID)) {
-            alertController.create({
-              header: 'Already in favorites',
-              buttons: [
-                {
-                  text: 'OK',
-                  role: 'cancel'
-                }
-              ]
-            }).then(alert => alert.present());
-          } else {
-            this.list.push(p);
-            this.storageService.set("favorites", this.list);
-            console.log(this.list);
-            alertController.create({
-              header: 'Added to favorites',
-              buttons: [
-                {
-                  text: 'OK',
-                  role: 'cancel'
-                }
-              ]
-            }).then(alert => alert.present());
+          if (favorites === null) {
+            favorites = [];
+          } {
+            this.list = favorites;
 
+            if (favorites.find(f => f.imdbID === p.imdbID)) {
+              alertController.create({
+                header: 'Already in favorites',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel'
+                  }
+                ]
+              }).then(alert => alert.present());
+            } else {
+              this.list.push(p);
+              this.storageService.set("favorites", this.list);
+              alertController.create({
+                header: 'Added to favorites',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel'
+                  }
+                ]
+              }).then(alert => alert.present());
+            }
           }
         });
       }
