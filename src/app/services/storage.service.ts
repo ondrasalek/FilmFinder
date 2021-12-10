@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { Storage } from '@ionic/storage-angular'
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private _storage: Storage | null = null;
+  list = [];
 
   constructor(
-    private storage: Storage
+    private storage: Storage,
   ) {
     this.init();
   }
@@ -37,5 +37,6 @@ export class StorageService {
   public remove(key: string) {
     this._storage.remove(key);
   }
+
 }
 

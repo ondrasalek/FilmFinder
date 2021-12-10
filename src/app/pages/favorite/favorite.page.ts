@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ViewWillEnter } from '@ionic/angular';
+import { Post } from 'src/app/models/post.model';
 
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -27,26 +28,43 @@ export class FavoritePage implements OnInit, ViewWillEnter {
   }
 
   deleteAllFavs() {
-    this.alertController.create({
-      header: 'Delete all favorites',
-      message: 'Are you sure you want to delete all favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
+    if (this.list.length > 0) {
+      this.alertController.create({
+        header: 'Delete all favorites',
+        message: 'Are you sure you want to delete all favorites?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+            }
+          }, {
+            text: 'DELETE',
+            handler: () => {
+              this.storageService.remove("favorites");
+              this.ionViewWillEnter();
+            }
+          }]
+      }).then(alert => alert.present());
+    }
+    else {
+      this.alertController.create({
+        header: 'Delete all favorites',
+        message: 'You dont have favorite movies',
+        buttons: [
+          {
+            text: 'Okay',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+            }
           }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            this.storageService.remove("favorites");
-            this.ionViewWillEnter();
-          }
-        }]
-    }).then(alert => alert.present());
+        ]
+      }).then(alert => alert.present());
+    }
   }
-  deleteItem(item) {
+  deleteItem(item: Post) {
     this.alertController.create({
       header: 'Delete this film?',
       message: item.Title,
@@ -54,11 +72,10 @@ export class FavoritePage implements OnInit, ViewWillEnter {
         {
           text: 'Cancel',
           role: 'cancel',
-          cssClass: 'secondary',
           handler: () => {
           }
         }, {
-          text: 'Okay',
+          text: 'DELETE',
           handler: () => {
             this.list = this.list.filter(fav => fav.imdbID !== item.imdbID ? fav : null);
             this.storageService.set("favorites", this.list);
@@ -67,5 +84,4 @@ export class FavoritePage implements OnInit, ViewWillEnter {
     }).then(alert => alert.present());
     this.ionViewWillEnter();
   }
-
 }

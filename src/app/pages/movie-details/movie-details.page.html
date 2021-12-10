@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="addFavorite()">
+      <ion-button color="primary" (click)="addFavorite()" *ngIf="exist$| async">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>

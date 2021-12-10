@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Favorite</ion-title>
+    <ion-title>Favorites</ion-title>
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="deleteAllFavs()">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
@@ -10,9 +10,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <section class="full-width ion-padding" *ngIf="list !== null">
-    <ion-list *ngIf="list.length !== 0">
-      <ion-item *ngFor="let item of list">
+  <section class="full-width ion-padding" *ngIf="list !== null, else nullList">
+    <ion-list *ngIf="list.length !== 0, else nullList">
+      <ion-item *ngFor="let item of list" [routerLink]="['/movies', item.imdbID]">
         <ion-avatar slot="start">
           <img [src]="item.Poster" *ngIf="item.Poster !== 'N/A'">
         </ion-avatar>
@@ -28,12 +28,13 @@
       </ion-item>
     </ion-list>
   </section>
-
-  <section class="full-width ion-padding" *ngIf="list === null || list.length === 0">
-    <ion-button expand="full" size="large" fill="outline" shape="round" color="warning" [routerLink]="['/tabs']">
-      <ion-icon slot="end" name="search-outline"></ion-icon>
-      NO FAVORITE MOVIES YET
-    </ion-button>
-  </section>
+  <ng-template #nullList>
+    <section class="full-width ion-padding">
+      <ion-button expand="full" size="large" fill="outline" shape="round" color="warning" [routerLink]="['/tabs']">
+        <ion-icon slot="end" name="search-outline"></ion-icon>
+        NO FAVORITE MOVIES YET
+      </ion-button>
+    </section>
+  </ng-template>
 
 </ion-content>
