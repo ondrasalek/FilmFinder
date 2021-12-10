@@ -20,7 +20,7 @@ import { Drivers, Storage } from '@ionic/storage';
     HttpClientModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
-      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     })
   ],
   providers: [

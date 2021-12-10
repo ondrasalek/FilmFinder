@@ -18,6 +18,9 @@ export class StorageService {
   async init() {
     const storage = await this.storage.create();
     this._storage = storage;
+    if (!this._storage.get('favorites')) {
+      this._storage.set('favorites', []);
+    }
   }
 
   // Create and expose methods that users of this service can
@@ -25,21 +28,12 @@ export class StorageService {
     this._storage?.set(key, value);
   }
 
-  public get(key: string) {
+  public get(key: string): Promise<any> {
     return this.storage.get(key);
   }
 
   public forEach(callback: (value: any, key: string, iterationNumber: Number) => void) {
     this.storage.forEach(callback);
-  }
-
-  public clear() {
-    this._storage?.clear();
-    console.log('Storage cleared');
-  }
-
-  public remove(key: string) {
-    this._storage?.remove(key);
   }
 
 }

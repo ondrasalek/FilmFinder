@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 
@@ -8,21 +8,22 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './favorite.page.html',
   styleUrls: ['./favorite.page.scss'],
 })
-export class FavoritePage implements OnInit, OnChanges {
+export class FavoritePage implements OnInit, ViewWillEnter {
   list = [];
 
   constructor(
     private storageService: StorageService,
     public alertController: AlertController,
   ) {
-    this.loadFavs();
   }
 
   async ngOnInit() {
   }
-  async ngOnChanges() {
+  async ionViewWillEnter() {
+    this.loadFavs();
   }
-  deleteAll() {
+
+  deleteAllFavs() {
     this.alertController.create({
       header: 'Delete all favorites',
       message: 'Are you sure you want to delete all favorites?',
@@ -36,15 +37,15 @@ export class FavoritePage implements OnInit, OnChanges {
         }, {
           text: 'Okay',
           handler: () => {
-            this.storageService.clear();
+            this.storageService.set("favorites", []);
           }
         }]
     }).then(alert => alert.present());
   }
 
   loadFavs() {
-    this.storageService.forEach((value, key, index) => {
-      this.list.push(value);
+    this.storageService.get("favorites").then(favs => {
+      this.list = favs;
     });
   }
 }

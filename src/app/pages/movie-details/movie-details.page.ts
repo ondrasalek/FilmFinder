@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class MovieDetailsPage implements OnInit {
   post$: Observable<Post>;
+  list = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,17 +28,38 @@ export class MovieDetailsPage implements OnInit {
   }
 
   addFavorite() {
-    alertController.create({
-      header: 'Added to favorites',
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel'
-        }
-      ]
-    }).then(alert => alert.present());
+
     this.post$.subscribe(p => {
-      this.storageService.set(p.imdbID, p);
+      if (this.storageService.get('favorites')) {
+        this.storageService.get('favorites').then(favorites => {
+          this.list = favorites;
+          if (favorites.find(f => f.imdbID === p.imdbID)) {
+            alertController.create({
+              header: 'Already in favorites',
+              buttons: [
+                {
+                  text: 'OK',
+                  role: 'cancel'
+                }
+              ]
+            }).then(alert => alert.present());
+          } else {
+            this.list.push(p);
+            this.storageService.set("favorites", this.list);
+            console.log(this.list);
+            alertController.create({
+              header: 'Added to favorites',
+              buttons: [
+                {
+                  text: 'OK',
+                  role: 'cancel'
+                }
+              ]
+            }).then(alert => alert.present());
+
+          }
+        });
+      }
     });
   };
 }
