@@ -12,16 +12,16 @@
 <ion-content [fullscreen]="true">
   <section class="full-width ion-padding" *ngIf="list !== null, else nullList">
     <ion-list *ngIf="list.length !== 0, else nullList">
-      <ion-item *ngFor="let item of list" [routerLink]="['/movies', item.imdbID]">
-        <ion-avatar slot="start">
+      <ion-item *ngFor="let item of list">
+        <ion-avatar slot="start" [routerLink]="['/favorite', item.imdbID]">
           <img [src]="item.Poster" *ngIf="item.Poster !== 'N/A'">
         </ion-avatar>
-        <ion-label text-wrap>
+        <ion-label text-wrap [routerLink]="['/favorite', item.imdbID]">
           <h3>{{ item.Title }}</h3>
           {{ item.Year }}
         </ion-label>
         <ion-buttons slot="end">
-          <ion-button color="primary" (click)="deleteItem(item)">
+          <ion-button color="primary" (click)="removeFavorite(item)">
             <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>

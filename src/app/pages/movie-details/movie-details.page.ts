@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from './../../services/movie.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Post } from 'src/app/models/post.model';
@@ -15,15 +15,24 @@ export class MovieDetailsPage implements OnInit, ViewWillEnter {
   post$: Observable<Post>;
   list = [];
   id: string;
+  item: any;
 
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService,
     private storageService: StorageService,
     public alertController: AlertController,
+    public router: Router
   ) {
+
     this.id = this.route.snapshot.paramMap.get("id");
-    this.post$ = this.movieService.getPost$(this.id);
+    if (this.router.url.split('/')[1] == 'favorite') {
+      this.item = this.storageService.getItem(this.id);
+      this.post$ = this.item;
+    }
+    else if (this.router.url.split('/')[1] == 'movies') {
+      this.post$ = this.movieService.getPost$(this.id);
+    }
   }
 
   ngOnInit() {
@@ -32,14 +41,13 @@ export class MovieDetailsPage implements OnInit, ViewWillEnter {
   }
 
   async addFavorite() {
-    await this.post$.subscribe(p => {
+    this.post$.subscribe(p => {
       if (this.storageService.get('favorites')) {
         this.storageService.get('favorites').then(favorites => {
           if (favorites === null) {
             favorites = [];
           } {
             this.list = favorites;
-
             if (favorites.find(f => f.imdbID === p.imdbID)) {
               this.alertController.create({
                 header: 'Already in favorites',
@@ -69,5 +77,5 @@ export class MovieDetailsPage implements OnInit, ViewWillEnter {
         });
       }
     });
-  };
+  }
 }

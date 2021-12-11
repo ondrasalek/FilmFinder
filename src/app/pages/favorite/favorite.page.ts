@@ -64,7 +64,8 @@ export class FavoritePage implements OnInit, ViewWillEnter {
       }).then(alert => alert.present());
     }
   }
-  deleteItem(item: Post) {
+
+  removeFavorite(item: Post) {
     this.alertController.create({
       header: 'Delete this film?',
       message: item.Title,
@@ -81,7 +82,8 @@ export class FavoritePage implements OnInit, ViewWillEnter {
             this.storageService.set("favorites", this.list);
           }
         }]
-    }).then(alert => alert.present());
+    }).then(
+      alert => alert.present());
     this.ionViewWillEnter();
   }
 }
