@@ -16,8 +16,12 @@ const routes: Routes = [
   },
   {
     path: 'favorite',
-    loadChildren: () => import('./pages/favorite/favorite.module').then( m => m.FavoritePageModule)
-  }
+    loadChildren: () => import('./pages/favorite/favorite.module').then(m => m.FavoritePageModule)
+  },
+  {
+    path: 'favorite/:id',
+    loadChildren: () => import('./pages/movie-details/movie-details.module').then(m => m.MovieDetailsPageModule)
+  },
 ];
 @NgModule({
   imports: [
