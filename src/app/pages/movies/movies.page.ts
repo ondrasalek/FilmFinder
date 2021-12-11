@@ -18,6 +18,7 @@ export class MoviesPage implements OnInit {
 
   async ngOnInit() {
   }
+
   searchMovie() {
     this.posts$ = this.movieService.getPosts$(this.searchTerm);
   }
