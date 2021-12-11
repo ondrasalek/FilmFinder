@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { Storage } from '@ionic/storage-angular'
+import { Storage } from '@ionic/storage-angular';
+import { AlertController } from '@ionic/angular';
+import { Post } from '../models/post.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private _storage: Storage | null = null;
-  list = [];
 
   constructor(
     private storage: Storage,
+    private alertController: AlertController
   ) {
     this.init();
   }
@@ -38,5 +41,17 @@ export class StorageService {
     this._storage.remove(key);
   }
 
+  getItem(id: string) {
+    return this.get('favorites').then((favorites) => {
+      return favorites.find((item) => {
+        if (item.imdbID === id) {
+          return item;
+        }
+        else {
+          return null;
+        }
+      });
+    });
+  }
 }
 
