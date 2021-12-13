@@ -1,7 +1,16 @@
 {
-  "name": "movie-finder",
+  "name": "film-finder",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "plugins": {
+        "SplashScreen": {
+          "launchAutoHide": false,
+          "androidScaleType": "CENTER_CROP",
+          "splashFullScreen": true,
+          "splashImmersive": false
+        }
+      }
+    }
   },
   "type": "angular"
 }
